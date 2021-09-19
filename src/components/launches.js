@@ -26,7 +26,12 @@ export default function Launches() {
       <Breadcrumbs
         items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
       />
-      <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
+      <SimpleGrid
+        m={[2, null, 6]}
+        minChildWidth="350px"
+        spacing="4"
+        data-cy="launch-items"
+      >
         {error && <Error />}
         {data &&
           data
@@ -55,6 +60,7 @@ export function LaunchItem({ launch, sx }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      data-cy="launch-item"
       {...sx}
     >
       <Image
@@ -102,7 +108,7 @@ export function LaunchItem({ launch, sx }) {
               {launch.rocket.rocket_name} &bull; {launch.launch_site.site_name}
             </Box>
           </Box>
-          <FavoriteLaunchStar launch={launch} />
+          <FavoriteLaunchStar launch={launch} data-cy="launch-star" />
         </Flex>
         <Box
           mt="1"
