@@ -68,6 +68,7 @@ function NavBar() {
         fontSize="lg"
         onClick={toggleIsOpen}
         cursor="pointer"
+        data-cy="favorites-drawer"
       >
         Favorites
       </Text>
