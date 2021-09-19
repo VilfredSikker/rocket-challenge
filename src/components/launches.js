@@ -1,15 +1,15 @@
-import React from "react";
-import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core";
-import { format as timeAgo } from "timeago.js";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core"
+import { format as timeAgo } from "timeago.js"
+import { Link } from "react-router-dom"
 
-import { useSpaceXPaginated } from "../utils/use-space-x";
-import { formatDate } from "../utils/format-date";
-import Error from "./error";
-import Breadcrumbs from "./breadcrumbs";
-import LoadMoreButton from "./load-more-button";
+import { useSpaceXPaginated } from "../utils/use-space-x"
+import { formatDate } from "../utils/format-date"
+import Error from "./error"
+import Breadcrumbs from "./breadcrumbs"
+import LoadMoreButton from "./load-more-button"
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 12
 
 export default function Launches() {
   const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
@@ -19,8 +19,8 @@ export default function Launches() {
       order: "desc",
       sort: "launch_date_utc",
     }
-  );
-  console.log(data, error);
+  )
+
   return (
     <div>
       <Breadcrumbs
@@ -42,7 +42,7 @@ export default function Launches() {
         isLoadingMore={isValidating}
       />
     </div>
-  );
+  )
 }
 
 export function LaunchItem({ launch }) {
@@ -118,5 +118,5 @@ export function LaunchItem({ launch }) {
         </Flex>
       </Box>
     </Box>
-  );
+  )
 }
