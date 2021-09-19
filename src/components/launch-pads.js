@@ -1,13 +1,14 @@
-import React from "react";
-import { Badge, Box, SimpleGrid, Text } from "@chakra-ui/core";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Badge, Box, Flex, SimpleGrid, Text } from "@chakra-ui/core"
+import { Link } from "react-router-dom"
 
-import Error from "./error";
-import Breadcrumbs from "./breadcrumbs";
-import LoadMoreButton from "./load-more-button";
-import { useSpaceXPaginated } from "../utils/use-space-x";
+import Error from "./error"
+import Breadcrumbs from "./breadcrumbs"
+import LoadMoreButton from "./load-more-button"
+import { useSpaceXPaginated } from "../utils/use-space-x"
+import { FavoriteLaunchPadStar } from "./favorite-star"
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 12
 
 export default function LaunchPads() {
   const { data, error, isValidating, size, setSize } = useSpaceXPaginated(
@@ -15,7 +16,7 @@ export default function LaunchPads() {
     {
       limit: PAGE_SIZE,
     }
-  );
+  )
 
   return (
     <div>
@@ -38,10 +39,10 @@ export default function LaunchPads() {
         isLoadingMore={isValidating}
       />
     </div>
-  );
+  )
 }
 
-function LaunchPadItem({ launchPad }) {
+export function LaunchPadItem({ launchPad, sx }) {
   return (
     <Box
       as={Link}
@@ -51,30 +52,35 @@ function LaunchPadItem({ launchPad }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      {...sx}
     >
       <Box p="6">
-        <Box d="flex" alignItems="baseline">
-          {launchPad.status === "active" ? (
-            <Badge px="2" variant="solid" variantColor="green">
-              Active
-            </Badge>
-          ) : (
-            <Badge px="2" variant="solid" variantColor="red">
-              Retired
-            </Badge>
-          )}
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-            ml="2"
-          >
-            {launchPad.attempted_launches} attempted &bull;{" "}
-            {launchPad.successful_launches} succeeded
+        <Flex justifyContent="space-between">
+          <Box d="flex" alignItems="baseline">
+            {launchPad.status === "active" ? (
+              <Badge px="2" variant="solid" variantColor="green">
+                Active
+              </Badge>
+            ) : (
+              <Badge px="2" variant="solid" variantColor="red">
+                Retired
+              </Badge>
+            )}
+            <Box
+              color="gray.500"
+              fontWeight="semibold"
+              letterSpacing="wide"
+              fontSize="xs"
+              textTransform="uppercase"
+              ml="2"
+            >
+              {launchPad.attempted_launches} attempted &bull;{" "}
+              {launchPad.successful_launches} succeeded
+            </Box>
           </Box>
-        </Box>
+
+          <FavoriteLaunchPadStar launchPad={launchPad} />
+        </Flex>
 
         <Box
           mt="1"
@@ -90,5 +96,5 @@ function LaunchPadItem({ launchPad }) {
         </Text>
       </Box>
     </Box>
-  );
+  )
 }

@@ -1,15 +1,15 @@
-import React from "react";
-import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core";
-import { format as timeAgo } from "timeago.js";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core"
+import { format as timeAgo } from "timeago.js"
+import { Link } from "react-router-dom"
+import { useSpaceXPaginated } from "../utils/use-space-x"
+import { formatDate } from "../utils/format-date"
+import Error from "./error"
+import Breadcrumbs from "./breadcrumbs"
+import LoadMoreButton from "./load-more-button"
+import { FavoriteLaunchStar } from "./favorite-star"
 
-import { useSpaceXPaginated } from "../utils/use-space-x";
-import { formatDate } from "../utils/format-date";
-import Error from "./error";
-import Breadcrumbs from "./breadcrumbs";
-import LoadMoreButton from "./load-more-button";
-
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 12
 
 export default function Launches() {
   const { data, error, isValidating, setSize, size } = useSpaceXPaginated(
@@ -19,8 +19,8 @@ export default function Launches() {
       order: "desc",
       sort: "launch_date_utc",
     }
-  );
-  console.log(data, error);
+  )
+
   return (
     <div>
       <Breadcrumbs
@@ -42,10 +42,10 @@ export default function Launches() {
         isLoadingMore={isValidating}
       />
     </div>
-  );
+  )
 }
 
-export function LaunchItem({ launch }) {
+export function LaunchItem({ launch, sx }) {
   return (
     <Box
       as={Link}
@@ -55,6 +55,7 @@ export function LaunchItem({ launch }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      {...sx}
     >
       <Image
         src={
@@ -79,28 +80,30 @@ export function LaunchItem({ launch }) {
       />
 
       <Box p="6">
-        <Box d="flex" alignItems="baseline">
-          {launch.launch_success ? (
-            <Badge px="2" variant="solid" variantColor="green">
-              Successful
-            </Badge>
-          ) : (
-            <Badge px="2" variant="solid" variantColor="red">
-              Failed
-            </Badge>
-          )}
-          <Box
-            color="gray.500"
-            fontWeight="semibold"
-            letterSpacing="wide"
-            fontSize="xs"
-            textTransform="uppercase"
-            ml="2"
-          >
-            {launch.rocket.rocket_name} &bull; {launch.launch_site.site_name}
+        <Flex justifyContent="space-between" flex="1">
+          <Box d="flex" alignItems="baseline">
+            {launch.launch_success ? (
+              <Badge px="2" variant="solid" variantColor="green">
+                Successful
+              </Badge>
+            ) : (
+              <Badge px="2" variant="solid" variantColor="red">
+                Failed
+              </Badge>
+            )}
+            <Box
+              color="gray.500"
+              fontWeight="semibold"
+              letterSpacing="wide"
+              fontSize="xs"
+              textTransform="uppercase"
+              ml="2"
+            >
+              {launch.rocket.rocket_name} &bull; {launch.launch_site.site_name}
+            </Box>
           </Box>
-        </Box>
-
+          <FavoriteLaunchStar launch={launch} />
+        </Flex>
         <Box
           mt="1"
           fontWeight="semibold"
@@ -118,5 +121,5 @@ export function LaunchItem({ launch }) {
         </Flex>
       </Box>
     </Box>
-  );
+  )
 }
