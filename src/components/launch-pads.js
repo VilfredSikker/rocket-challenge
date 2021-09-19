@@ -6,7 +6,6 @@ import Error from "./error"
 import Breadcrumbs from "./breadcrumbs"
 import LoadMoreButton from "./load-more-button"
 import { useSpaceXPaginated } from "../utils/use-space-x"
-import { useFavoritesContext } from "../context/favorites-context"
 import { FavoriteLaunchPadStar } from "./favorite-star"
 
 const PAGE_SIZE = 12
@@ -44,10 +43,6 @@ export default function LaunchPads() {
 }
 
 export function LaunchPadItem({ launchPad, sx }) {
-  const { addFavoriteLaunchPad, removeFavoriteLaunchPad, isFavoriteLaunchPad } =
-    useFavoritesContext()
-  const isFavorite = isFavoriteLaunchPad(launchPad)
-
   return (
     <Box
       as={Link}
