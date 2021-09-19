@@ -43,7 +43,6 @@ context("Navigation", () => {
     cy.get("[data-cy=launch-item").first().click()
 
     cy.get("[data-cy=breadcrumb").first().click()
-
     cy.location("pathname").should("eq", "/")
   })
 })

@@ -25,12 +25,9 @@ context("Favorites", () => {
 
     cy.location("pathname").should("eq", "/launches")
 
-    cy.get("[data-cy=launch-star]")
-      .first()
-      .click()
-      .should(() => {
-        cy.location("pathname").should("eq", "/launches")
-      })
+    cy.get("[data-cy=launch-star]").first().click()
+
+    cy.location("pathname").should("eq", "/launches")
   })
 
   it("Click launch star will add to localstorage", () => {
@@ -54,24 +51,22 @@ context("Favorites", () => {
 
     cy.location("pathname").should("eq", "/launches")
 
-    cy.get("[data-cy=launch-star]")
-      .first()
-      .click()
-      .should(() => {
-        const storage = JSON.parse(localStorage.getItem("favorites"))
-        const launches = Object.values(storage.launches)
+    const button = cy.get("[data-cy=launch-star]").first()
 
-        cy.expect(launches.length).to.equal(1)
-      })
+    button.click().should(() => {
+      const storage = JSON.parse(localStorage.getItem("favorites"))
+      const launches = Object.values(storage.launches)
 
-    cy.get("[data-cy=launch-star]")
-      .first()
-      .click()
-      .should(() => {
-        const storage = JSON.parse(localStorage.getItem("favorites"))
-        const launches = Object.values(storage.launches)
+      cy.expect(launches.length).to.equal(1)
+    })
 
-        cy.expect(launches.length).to.equal(0)
-      })
+    button.click().should(() => {
+      const storage = JSON.parse(localStorage.getItem("favorites"))
+      const launches = Object.values(storage.launches)
+
+      cy.expect(launches.length).to.equal(0)
+    })
+
+    cy.location("pathname").should("eq", "/launches")
   })
 })
