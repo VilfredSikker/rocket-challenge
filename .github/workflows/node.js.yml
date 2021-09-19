@@ -45,10 +45,12 @@ jobs:
 
       - name: install packages
         run: yarn install --frozen-lockfile
+
       - name: run jest test
         run: yarn test
+
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          build: yarn build
           start: yarn start
+          wait-on: "http://localhost:3000"
