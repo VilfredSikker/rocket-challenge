@@ -7,7 +7,7 @@ import Breadcrumbs from "./breadcrumbs"
 import LoadMoreButton from "./load-more-button"
 import { useSpaceXPaginated } from "../utils/use-space-x"
 import { useFavoritesContext } from "../context/favorites-context"
-import { Star } from "react-feather"
+import { FavoriteLaunchPadStar } from "./favorite-star"
 
 const PAGE_SIZE = 12
 
@@ -83,18 +83,8 @@ export function LaunchPadItem({ launchPad, sx }) {
               {launchPad.successful_launches} succeeded
             </Box>
           </Box>
-          <Box
-            onClick={(e) => {
-              e.preventDefault()
-              if (isFavorite) {
-                removeFavoriteLaunchPad(launchPad)
-              } else {
-                addFavoriteLaunchPad(launchPad)
-              }
-            }}
-          >
-            <Star className="star" fill={isFavorite ? "gold" : "none"} />
-          </Box>
+
+          <FavoriteLaunchPadStar launchPad={launchPad} />
         </Flex>
 
         <Box

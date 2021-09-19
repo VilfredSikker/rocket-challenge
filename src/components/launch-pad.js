@@ -1,6 +1,6 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { MapPin, Navigation } from "react-feather";
+import React from "react"
+import { useParams } from "react-router-dom"
+import { MapPin, Navigation } from "react-feather"
 import {
   Flex,
   Heading,
@@ -15,31 +15,32 @@ import {
   Spinner,
   Stack,
   AspectRatioBox,
-} from "@chakra-ui/core";
+} from "@chakra-ui/core"
 
-import { useSpaceX } from "../utils/use-space-x";
-import Error from "./error";
-import Breadcrumbs from "./breadcrumbs";
-import { LaunchItem } from "./launches";
+import { useSpaceX } from "../utils/use-space-x"
+import Error from "./error"
+import Breadcrumbs from "./breadcrumbs"
+import { LaunchItem } from "./launches"
+import { FavoriteLaunchPadStar } from "./favorite-star"
 
 export default function LaunchPad() {
-  let { launchPadId } = useParams();
-  const { data: launchPad, error } = useSpaceX(`/launchpads/${launchPadId}`);
+  let { launchPadId } = useParams()
+  const { data: launchPad, error } = useSpaceX(`/launchpads/${launchPadId}`)
 
   const { data: launches } = useSpaceX(launchPad ? "/launches/past" : null, {
     limit: 3,
     order: "desc",
     sort: "launch_date_utc",
     site_id: launchPad?.site_id,
-  });
+  })
 
-  if (error) return <Error />;
+  if (error) return <Error />
   if (!launchPad) {
     return (
       <Flex justifyContent="center" alignItems="center" minHeight="50vh">
         <Spinner size="lg" />
       </Flex>
-    );
+    )
   }
 
   return (
@@ -53,6 +54,7 @@ export default function LaunchPad() {
       />
       <Header launchPad={launchPad} />
       <Box m={[3, 6]}>
+        <FavoriteLaunchPadStar launchPad={launchPad} />
         <LocationAndVehicles launchPad={launchPad} />
         <Text color="gray.700" fontSize={["md", null, "lg"]} my="8">
           {launchPad.details}
@@ -61,11 +63,11 @@ export default function LaunchPad() {
         <RecentLaunches launches={launches} />
       </Box>
     </div>
-  );
+  )
 }
 
 const randomColor = (start = 200, end = 250) =>
-  `hsl(${start + end * Math.random()}, 80%, 90%)`;
+  `hsl(${start + end * Math.random()}, 80%, 90%)`
 
 function Header({ launchPad }) {
   return (
@@ -107,7 +109,7 @@ function Header({ launchPad }) {
         )}
       </Stack>
     </Flex>
-  );
+  )
 }
 
 function LocationAndVehicles({ launchPad }) {
@@ -135,7 +137,7 @@ function LocationAndVehicles({ launchPad }) {
         </StatNumber>
       </Stat>
     </SimpleGrid>
-  );
+  )
 }
 
 function Map({ location }) {
@@ -147,12 +149,12 @@ function Map({ location }) {
         alt="demo"
       />
     </AspectRatioBox>
-  );
+  )
 }
 
 function RecentLaunches({ launches }) {
   if (!launches?.length) {
-    return null;
+    return null
   }
   return (
     <Stack my="8" spacing="3">
@@ -165,5 +167,5 @@ function RecentLaunches({ launches }) {
         ))}
       </SimpleGrid>
     </Stack>
-  );
+  )
 }

@@ -2,13 +2,12 @@ import React from "react"
 import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core"
 import { format as timeAgo } from "timeago.js"
 import { Link } from "react-router-dom"
-import { Star } from "react-feather"
 import { useSpaceXPaginated } from "../utils/use-space-x"
 import { formatDate } from "../utils/format-date"
 import Error from "./error"
 import Breadcrumbs from "./breadcrumbs"
 import LoadMoreButton from "./load-more-button"
-import { useFavoritesContext } from "../context/favorites-context"
+import { FavoriteLaunchStar } from "./favorite-star"
 
 const PAGE_SIZE = 12
 
@@ -47,10 +46,6 @@ export default function Launches() {
 }
 
 export function LaunchItem({ launch, sx }) {
-  const { addFavoriteLaunch, isFavoriteLaunch, removeFavoriteLaunch } =
-    useFavoritesContext()
-  const isFavorite = isFavoriteLaunch(launch)
-
   return (
     <Box
       as={Link}
@@ -107,18 +102,7 @@ export function LaunchItem({ launch, sx }) {
               {launch.rocket.rocket_name} &bull; {launch.launch_site.site_name}
             </Box>
           </Box>
-          <Box
-            onClick={(e) => {
-              e.preventDefault()
-              if (isFavorite) {
-                removeFavoriteLaunch(launch)
-              } else {
-                addFavoriteLaunch(launch)
-              }
-            }}
-          >
-            <Star className="star" fill={isFavorite ? "gold" : "none"} />
-          </Box>
+          <FavoriteLaunchStar launch={launch} />
         </Flex>
         <Box
           mt="1"

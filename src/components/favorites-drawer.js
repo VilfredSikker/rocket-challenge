@@ -52,9 +52,12 @@ export const FavoritesDrawer = () => {
               <TabPanel>
                 <Stack direction="column" spacing="3">
                   {Object.entries(favorites?.launches)?.map(([key, value]) => (
-                    <Box mb="2" borderBottom="1px solid black">
+                    <Box
+                      key={`launch-item-${key}`}
+                      mb="2"
+                      borderBottom="1px solid black"
+                    >
                       <LaunchItem
-                        key={`launch-item-${key}`}
                         launch={value}
                         sx={{
                           borderWidth: "0px",
@@ -66,9 +69,12 @@ export const FavoritesDrawer = () => {
               </TabPanel>
               <TabPanel>
                 {Object.entries(favorites?.launchPads)?.map(([key, value]) => (
-                  <Box mb="2" borderBottom="1px solid black">
+                  <Box
+                    key={`launch-pad-${key}`}
+                    mb="2"
+                    borderBottom="1px solid black"
+                  >
                     <LaunchPadItem
-                      key={`launch-pad-${key}`}
                       launchPad={value}
                       sx={{
                         borderWidth: "0px",

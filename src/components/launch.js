@@ -30,6 +30,7 @@ import {
 import Error from "./error"
 import Breadcrumbs from "./breadcrumbs"
 import tz_lookup from "tz-lookup"
+import { FavoriteLaunchStar } from "./favorite-star"
 
 export default function Launch() {
   let { launchId } = useParams()
@@ -55,6 +56,7 @@ export default function Launch() {
       />
       <Header launch={launch} />
       <Box m={[3, 6]}>
+        <FavoriteLaunchStar launch={launch} />
         <TimeAndLocation launch={launch} />
         <RocketInfo launch={launch} />
         <Text color="gray.700" fontSize={["md", null, "lg"]} my="8">
