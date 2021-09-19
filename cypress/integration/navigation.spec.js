@@ -45,4 +45,16 @@ context("Navigation", () => {
     cy.get("[data-cy=breadcrumb").first().click()
     cy.location("pathname").should("eq", "/")
   })
+
+  it("Opens favorite drawer", () => {
+    cy.get("[data-cy=favorites-drawer").click()
+
+    cy.get("[data-cy=favorites-drawer-launches-tab").should("be.visible")
+  })
+
+  it("Opens favorite drawer and closes", () => {
+    cy.get("[data-cy=favorites-drawer").click()
+    cy.get("[data-cy=favorites-drawer-close-button]").click()
+    cy.get("[data-cy=favorites-drawer-launches-tab").should("not.be.visible")
+  })
 })

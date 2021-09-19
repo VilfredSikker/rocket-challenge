@@ -37,7 +37,11 @@ export const FavoritesDrawer = () => {
     >
       <Flex justifyContent="space-between" alignItems="center" mb="2">
         <Text fontSize="2xl">Favorites</Text>
-        <X onClick={toggleIsOpen} cursor="pointer" />
+        <X
+          onClick={toggleIsOpen}
+          cursor="pointer"
+          data-cy="favorites-drawer-close-button"
+        />
       </Flex>
       {!favorites ? (
         <Text>No Favorites</Text>
@@ -75,7 +79,7 @@ export const FavoritesDrawer = () => {
                 <Stack
                   direction="column"
                   spacing="3"
-                  data-cy="favorites-drawer-launches-stack"
+                  data-cy="favorites-drawer-launchpads-stack"
                 >
                   {Object.entries(favorites?.launchPads)?.map(
                     ([key, value]) => (
