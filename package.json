@@ -8,8 +8,11 @@
   "jest": {
     "transformIgnorePatterns": [
       "node_modules/tz_lookup"
-    ]
+      
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test))\\.[jt]sx?$"
   },
+
   "license": "MIT",
   "private": true,
   "dependencies": {
