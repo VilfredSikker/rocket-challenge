@@ -12,6 +12,7 @@ const defaultContext = {
   removeFavoriteLaunchPad: (launchPadId) => {},
   toggleIsOpen: () => {},
   isFavoriteLaunch: (launch) => {},
+  isFavoriteLaunchPad: (launchPad) => {},
 }
 
 const STORAGE_KEY = "favorites"
@@ -26,33 +27,54 @@ export const FavoritesProvider = ({ children }) => {
   useEffect(() => {
     // Check localstorage
     const favorites = getLocalFavorites()
-    console.log("here: ", favorites)
     // update state
     setFavorites(favorites)
   }, [])
 
-  const addFavoriteLaunch = (launch) => {
-    const favorites = getLocalFavorites()
-
-    favorites.launches[launch.flight_number] = launch
-
+  const updateFavorites = (favorites) => {
     setFavorites(favorites)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
   }
 
-  const addFavoriteLaunchPad = () => {}
+  const addFavoriteLaunch = (launch) => {
+    if (!launch.flight_number) return
+
+    const newFavorites = { ...favorites }
+
+    favorites.launches[launch.flight_number] = launch
+
+    updateFavorites(newFavorites)
+  }
+
+  const addFavoriteLaunchPad = (launchPad) => {
+    if (!launchPad.id) return
+
+    const newFavorites = { ...favorites }
+
+    newFavorites.launchPads[launchPad.id] = launchPad
+
+    updateFavorites(newFavorites)
+  }
 
   const removeFavoriteLaunch = (launch) => {
     if (!launch.flight_number) return
 
-    const favorites = getLocalFavorites()
+    const newFavorites = { ...favorites }
 
-    delete favorites.launches[launch.flight_number]
+    delete newFavorites.launches[launch.flight_number]
 
-    setFavorites(favorites)
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
+    updateFavorites(newFavorites)
   }
-  const removeFavoriteLaunchPad = () => {}
+
+  const removeFavoriteLaunchPad = (launchPad) => {
+    if (!launchPad.id) return
+
+    const newFavorites = { ...favorites }
+
+    delete newFavorites.launchPads[launchPad.id]
+
+    updateFavorites(newFavorites)
+  }
 
   const getLocalFavorites = () => {
     const favorites = localStorage.getItem(STORAGE_KEY)
@@ -75,6 +97,10 @@ export const FavoritesProvider = ({ children }) => {
     return Boolean(favorites.launches[launch.flight_number])
   }
 
+  const isFavoriteLaunchPad = (launchPad) => {
+    return Boolean(favorites.launchPads[launchPad.id])
+  }
+
   return (
     <FavoritesContext.Provider
       value={{
@@ -86,6 +112,7 @@ export const FavoritesProvider = ({ children }) => {
         removeFavoriteLaunchPad: removeFavoriteLaunchPad,
         toggleIsOpen: toggleIsOpen,
         isFavoriteLaunch: isFavoriteLaunch,
+        isFavoriteLaunchPad: isFavoriteLaunchPad,
       }}
     >
       {children}
