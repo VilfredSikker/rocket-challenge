@@ -46,7 +46,7 @@ export default function Launches() {
   )
 }
 
-export function LaunchItem({ launch }) {
+export function LaunchItem({ launch, sx }) {
   const { addFavoriteLaunch, isFavoriteLaunch, removeFavoriteLaunch } =
     useFavoritesContext()
   const isFavorite = isFavoriteLaunch(launch)
@@ -60,6 +60,7 @@ export function LaunchItem({ launch }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      {...sx}
     >
       <Image
         src={

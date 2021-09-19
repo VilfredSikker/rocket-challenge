@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  Stack,
   Tab,
   TabList,
   TabPanel,
@@ -22,16 +23,15 @@ export const FavoritesDrawer = () => {
 
   return (
     <Box
-      position="absolute"
+      position="fixed"
       right="0"
       top="0"
       bottom="0"
       bg="white"
       p="6"
       zIndex="modal"
-      maxWidth="50%"
-      minWidth="40%"
-      height="100vh"
+      minWidth={["100%", "40%"]}
+      height="100%"
       borderLeft="1px solid black"
       overflow="hidden"
       display={isOpen ? "block" : "none"}
@@ -43,21 +43,39 @@ export const FavoritesDrawer = () => {
       {!favorites ? (
         <Text>No Favorites</Text>
       ) : (
-        <Box overflow="scroll" maxHeight="100%">
-          <Tabs>
+        <Box overflow="scroll" maxHeight="90vh">
+          <Tabs variant="enclosed">
             <TabList position="sticky">
               <Tab>Launches</Tab>
               <Tab>Launch Pads</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
-                {Object.entries(favorites?.launches)?.map(([key, value]) => (
-                  <LaunchItem launch={value} />
-                ))}
+                <Stack direction="column" spacing="3">
+                  {Object.entries(favorites?.launches)?.map(([key, value]) => (
+                    <Box mb="2" borderBottom="1px solid black">
+                      <LaunchItem
+                        key={`launch-item-${key}`}
+                        launch={value}
+                        sx={{
+                          borderWidth: "0px",
+                        }}
+                      />
+                    </Box>
+                  ))}
+                </Stack>
               </TabPanel>
               <TabPanel>
                 {Object.entries(favorites?.launchPads)?.map(([key, value]) => (
-                  <LaunchPadItem launchPad={value} />
+                  <Box mb="2" borderBottom="1px solid black">
+                    <LaunchPadItem
+                      key={`launch-pad-${key}`}
+                      launchPad={value}
+                      sx={{
+                        borderWidth: "0px",
+                      }}
+                    />
+                  </Box>
                 ))}
               </TabPanel>
             </TabPanels>

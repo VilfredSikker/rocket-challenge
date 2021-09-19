@@ -43,7 +43,7 @@ export default function LaunchPads() {
   )
 }
 
-export function LaunchPadItem({ launchPad }) {
+export function LaunchPadItem({ launchPad, sx }) {
   const { addFavoriteLaunchPad, removeFavoriteLaunchPad, isFavoriteLaunchPad } =
     useFavoritesContext()
   const isFavorite = isFavoriteLaunchPad(launchPad)
@@ -57,6 +57,7 @@ export function LaunchPadItem({ launchPad }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      {...sx}
     >
       <Box p="6">
         <Flex justifyContent="space-between">
