@@ -22,9 +22,6 @@ export default function Launches() {
     }
   )
 
-  const context = useFavoritesContext()
-  console.log("favorites", context)
-
   return (
     <div>
       <Breadcrumbs
@@ -50,7 +47,9 @@ export default function Launches() {
 }
 
 export function LaunchItem({ launch }) {
-  const { addFavoriteLaunch } = useFavoritesContext()
+  const { addFavoriteLaunch, isFavoriteLaunch, removeFavoriteLaunch } =
+    useFavoritesContext()
+  const isFavorite = isFavoriteLaunch(launch)
 
   return (
     <Box
@@ -110,11 +109,14 @@ export function LaunchItem({ launch }) {
           <Box
             onClick={(e) => {
               e.preventDefault()
-              console.log("star clicked")
-              addFavoriteLaunch(launch)
+              if (isFavorite) {
+                removeFavoriteLaunch(launch)
+              } else {
+                addFavoriteLaunch(launch)
+              }
             }}
           >
-            <Star />
+            <Star className="star" fill={isFavorite ? "gold" : "none"} />
           </Box>
         </Flex>
         <Box

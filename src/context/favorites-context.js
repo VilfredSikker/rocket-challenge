@@ -11,6 +11,7 @@ const defaultContext = {
   removeFavoriteLaunch: (launchId) => {},
   removeFavoriteLaunchPad: (launchPadId) => {},
   toggleIsOpen: () => {},
+  isFavoriteLaunch: (launch) => {},
 }
 
 const STORAGE_KEY = "favorites"
@@ -32,16 +33,25 @@ export const FavoritesProvider = ({ children }) => {
 
   const addFavoriteLaunch = (launch) => {
     const favorites = getLocalFavorites()
-    const newFavorites = { ...favorites }
 
-    newFavorites.launches[launch.flight_number] = launch
+    favorites.launches[launch.flight_number] = launch
 
-    setFavorites(newFavorites)
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(newFavorites))
+    setFavorites(favorites)
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
   }
 
   const addFavoriteLaunchPad = () => {}
-  const removeFavoriteLaunch = () => {}
+
+  const removeFavoriteLaunch = (launch) => {
+    if (!launch.flight_number) return
+
+    const favorites = getLocalFavorites()
+
+    delete favorites.launches[launch.flight_number]
+
+    setFavorites(favorites)
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites))
+  }
   const removeFavoriteLaunchPad = () => {}
 
   const getLocalFavorites = () => {
@@ -61,6 +71,10 @@ export const FavoritesProvider = ({ children }) => {
     setOpen((prev) => !prev)
   }
 
+  const isFavoriteLaunch = (launch) => {
+    return Boolean(favorites.launches[launch.flight_number])
+  }
+
   return (
     <FavoritesContext.Provider
       value={{
@@ -71,6 +85,7 @@ export const FavoritesProvider = ({ children }) => {
         removeFavoriteLaunch: removeFavoriteLaunch,
         removeFavoriteLaunchPad: removeFavoriteLaunchPad,
         toggleIsOpen: toggleIsOpen,
+        isFavoriteLaunch: isFavoriteLaunch,
       }}
     >
       {children}
