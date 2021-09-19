@@ -12,14 +12,11 @@ import {
 import React from "react"
 import { X } from "react-feather"
 import { useFavoritesContext } from "../context/favorites-context"
-import LaunchPad from "./launch-pad"
 import { LaunchPadItem } from "./launch-pads"
 import { LaunchItem } from "./launches"
 
 export const FavoritesDrawer = () => {
   const { favorites, isOpen, toggleIsOpen } = useFavoritesContext()
-
-  console.log(isOpen)
 
   return (
     <Box
@@ -45,13 +42,13 @@ export const FavoritesDrawer = () => {
       {!favorites ? (
         <Text>No Favorites</Text>
       ) : (
-        <Box overflow="scroll" maxHeight="90vh">
+        <Box>
           <Tabs variant="enclosed">
             <TabList position="sticky">
               <Tab>Launches</Tab>
               <Tab>Launch Pads</Tab>
             </TabList>
-            <TabPanels>
+            <TabPanels overflow="scroll" maxHeight="90vh">
               <TabPanel>
                 <Stack direction="column" spacing="3">
                   {Object.entries(favorites?.launches)?.map(([key, value]) => (

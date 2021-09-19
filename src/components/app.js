@@ -33,9 +33,14 @@ function NavBar() {
       as="nav"
       align="center"
       justify="space-between"
+      position="fixed"
+      top="0"
+      left="0"
+      right="0"
       wrap="wrap"
       padding="6"
       bg="gray.800"
+      zIndex="sticky"
       color="white"
     >
       <Text
@@ -52,6 +57,7 @@ function NavBar() {
         fontWeight="bold"
         fontSize="lg"
         onClick={toggleIsOpen}
+        cursor="pointer"
       >
         Favorites
       </Text>
