@@ -34,7 +34,9 @@ export const FavoritesDrawer = () => {
       height="100%"
       borderLeft="1px solid black"
       overflow="hidden"
-      display={isOpen ? "block" : "none"}
+      visibility={isOpen ? "visible" : "hidden"}
+      transition="all 400ms"
+      transform={isOpen ? "translateX(0px)" : "translateX(100%)"}
     >
       <Flex justifyContent="space-between" alignItems="center" mb="2">
         <Text fontSize="2xl">Favorites</Text>
