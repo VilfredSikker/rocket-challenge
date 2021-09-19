@@ -52,7 +52,7 @@ export const FavoritesDrawer = () => {
               <Tab data-cy="favorites-drawer-launches-tab">Launches</Tab>
               <Tab data-cy="favorites-drawer-launchpads-tab">Launch Pads</Tab>
             </TabList>
-            <TabPanels overflow="scroll" maxHeight="90vh">
+            <TabPanels overflow="scroll" maxHeight="80vh">
               <TabPanel>
                 <Stack
                   direction="column"
