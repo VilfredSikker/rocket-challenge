@@ -142,7 +142,11 @@ function TimeAndLocation({ launch }) {
           </Box>
         </StatLabel>
         <StatNumber fontSize={["md", "xl"]}>
-          {formatDateTimeWithTimeZone(launch.launch_date_utc, timeZone)}
+          <Tooltip
+            label={`Your local time: ${formatDateTime(launch.launch_date_utc)}`}
+          >
+            {formatDateTimeWithTimeZone(launch.launch_date_utc, timeZone)}
+          </Tooltip>
         </StatNumber>
         <StatHelpText>{timeAgo(launch.launch_date_utc)}</StatHelpText>
       </Stat>
