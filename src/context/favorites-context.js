@@ -24,7 +24,6 @@ export const useFavoritesContext = () => useContext(FavoritesContext)
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState()
   const [open, setOpen] = useState(false)
-  const [filterFavorites, setFilterFavorites] = useState(false)
 
   useEffect(() => {
     // Check localstorage

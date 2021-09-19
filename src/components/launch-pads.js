@@ -1,5 +1,14 @@
-import React from "react"
-import { Badge, Box, Flex, SimpleGrid, Text } from "@chakra-ui/core"
+import React, { useState } from "react"
+import {
+  Badge,
+  Box,
+  Flex,
+  FormControl,
+  FormLabel,
+  SimpleGrid,
+  Text,
+  Switch,
+} from "@chakra-ui/core"
 import { Link } from "react-router-dom"
 
 import Error from "./error"
@@ -7,6 +16,7 @@ import Breadcrumbs from "./breadcrumbs"
 import LoadMoreButton from "./load-more-button"
 import { useSpaceXPaginated } from "../utils/use-space-x"
 import { FavoriteLaunchPadStar } from "./favorite-star"
+import { useFavoritesContext } from "../context/favorites-context"
 
 const PAGE_SIZE = 12
 
@@ -17,17 +27,34 @@ export default function LaunchPads() {
       limit: PAGE_SIZE,
     }
   )
+  const { isFavoriteLaunchPad } = useFavoritesContext()
+  const [filterFavorites, setFilterFavorites] = useState(false)
 
   return (
     <div>
       <Breadcrumbs
         items={[{ label: "Home", to: "/" }, { label: "Launch Pads" }]}
       />
+      <FormControl display="flex" alignItems="center" m={[2, null, 6]}>
+        <FormLabel htmlFor="filter-favorites" mb="0">
+          Only show favorites
+        </FormLabel>
+        <Switch
+          id="filter-favorites"
+          onChange={() => setFilterFavorites((prev) => !prev)}
+        />
+      </FormControl>
       <SimpleGrid m={[2, null, 6]} minChildWidth="350px" spacing="4">
         {error && <Error />}
         {data &&
           data
             .flat()
+            .filter((launchPad) => {
+              if (filterFavorites) {
+                return isFavoriteLaunchPad(launchPad)
+              }
+              return true
+            })
             .map((launchPad) => (
               <LaunchPadItem key={launchPad.site_id} launchPad={launchPad} />
             ))}
