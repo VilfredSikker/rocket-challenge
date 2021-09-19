@@ -52,6 +52,7 @@ export function LaunchPadItem({ launchPad, sx }) {
       rounded="lg"
       overflow="hidden"
       position="relative"
+      data-cy="launch-pad-item"
       {...sx}
     >
       <Box p="6">
@@ -79,7 +80,10 @@ export function LaunchPadItem({ launchPad, sx }) {
             </Box>
           </Box>
 
-          <FavoriteLaunchPadStar launchPad={launchPad} />
+          <FavoriteLaunchPadStar
+            launchPad={launchPad}
+            data-cy="launch-pad-star"
+          />
         </Flex>
 
         <Box

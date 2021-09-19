@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/core"
 import { Star } from "react-feather"
 import { useFavoritesContext } from "../context/favorites-context"
 
-export const FavoriteLaunchStar = ({ launch }) => {
+export const FavoriteLaunchStar = ({ launch, ...rest }) => {
   const { isFavoriteLaunch, addFavoriteLaunch, removeFavoriteLaunch } =
     useFavoritesContext()
   const isFavorite = isFavoriteLaunch(launch)
@@ -19,11 +19,12 @@ export const FavoriteLaunchStar = ({ launch }) => {
           addFavoriteLaunch(launch)
         }
       }}
+      {...rest}
     />
   )
 }
 
-export const FavoriteLaunchPadStar = ({ launchPad }) => {
+export const FavoriteLaunchPadStar = ({ launchPad, ...rest }) => {
   const { isFavoriteLaunchPad, addFavoriteLaunchPad, removeFavoriteLaunchPad } =
     useFavoritesContext()
   const isFavorite = isFavoriteLaunchPad(launchPad)
@@ -39,13 +40,14 @@ export const FavoriteLaunchPadStar = ({ launchPad }) => {
           addFavoriteLaunchPad(launchPad)
         }
       }}
+      {...rest}
     />
   )
 }
 
-const FavoriteStar = ({ isFavorite, onClick }) => {
+const FavoriteStar = ({ isFavorite, onClick, ...rest }) => {
   return (
-    <Box as="button" onClick={onClick}>
+    <Box as="button" onClick={onClick} data-cy="launch-star" {...rest}>
       <Star className="star" fill={isFavorite ? "gold" : "none"} />
     </Box>
   )
