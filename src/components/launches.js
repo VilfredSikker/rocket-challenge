@@ -1,5 +1,15 @@
-import React from "react"
-import { Badge, Box, Image, SimpleGrid, Text, Flex } from "@chakra-ui/core"
+import React, { useState } from "react"
+import {
+  Badge,
+  Box,
+  Image,
+  SimpleGrid,
+  Text,
+  Flex,
+  Switch,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/core"
 import { format as timeAgo } from "timeago.js"
 import { Link } from "react-router-dom"
 import { useSpaceXPaginated } from "../utils/use-space-x"
@@ -8,6 +18,7 @@ import Error from "./error"
 import Breadcrumbs from "./breadcrumbs"
 import LoadMoreButton from "./load-more-button"
 import { FavoriteLaunchStar } from "./favorite-star"
+import { useFavoritesContext } from "../context/favorites-context"
 
 const PAGE_SIZE = 12
 
@@ -20,12 +31,25 @@ export default function Launches() {
       sort: "launch_date_utc",
     }
   )
+  const [filterFavorites, setFilterFavorites] = useState(false)
+
+  const { isFavoriteLaunch } = useFavoritesContext()
 
   return (
     <div>
       <Breadcrumbs
         items={[{ label: "Home", to: "/" }, { label: "Launches" }]}
       />
+      <FormControl display="flex" alignItems="center" m={[2, null, 6]}>
+        <FormLabel htmlFor="filter-favorites" mb="0">
+          Only show favorites
+        </FormLabel>
+        <Switch
+          id="filter-favorites"
+          onChange={() => setFilterFavorites((prev) => !prev)}
+        />
+      </FormControl>
+
       <SimpleGrid
         m={[2, null, 6]}
         minChildWidth="350px"
@@ -36,6 +60,12 @@ export default function Launches() {
         {data &&
           data
             .flat()
+            .filter((launch) => {
+              if (filterFavorites) {
+                return isFavoriteLaunch(launch)
+              }
+              return true
+            })
             .map((launch) => (
               <LaunchItem launch={launch} key={launch.flight_number} />
             ))}

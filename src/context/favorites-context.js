@@ -5,6 +5,7 @@ const defaultContext = {
     launches: {},
     launchPads: {},
   },
+
   isOpen: false,
   addFavoriteLaunch: (launch) => {},
   addFavoriteLaunchPad: (launchPad) => {},
