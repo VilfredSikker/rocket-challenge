@@ -5,6 +5,11 @@
     "Maciek Pekala <maciek@pleo.io>",
     "Peter Scott <peter@pleo.io>"
   ],
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/tz_lookup"
+    ]
+  },
   "license": "MIT",
   "private": true,
   "dependencies": {
@@ -19,12 +24,13 @@
     "react-router-dom": "^6.0.0-alpha.3",
     "react-scripts": "3.4.3",
     "swr": "^0.3.0",
-    "timeago.js": "^4.0.2"
+    "timeago.js": "^4.0.2",
+    "tz-lookup": "^6.1.25"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "jest"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,5 +46,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.15.4",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/runtime": "^7.15.4",
+    "jest": "^27.2.0"
   }
 }
