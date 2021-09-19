@@ -47,5 +47,8 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: run jest test
         run: yarn test
-      - name: run cypress test
-        run: yarn test:cypress
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: yarn build
+          start: yarn start
