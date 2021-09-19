@@ -22,7 +22,7 @@ export const useFavoritesContext = () => useContext(FavoritesContext)
 
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState()
-  const [open, setOpen] = useState()
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     // Check localstorage
@@ -105,7 +105,7 @@ export const FavoritesProvider = ({ children }) => {
     <FavoritesContext.Provider
       value={{
         favorites: favorites,
-        open: open,
+        isOpen: open,
         addFavoriteLaunch: addFavoriteLaunch,
         addFavoriteLaunchPad: addFavoriteLaunchPad,
         removeFavoriteLaunch: removeFavoriteLaunch,

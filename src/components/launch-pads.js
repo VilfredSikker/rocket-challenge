@@ -43,7 +43,7 @@ export default function LaunchPads() {
   )
 }
 
-function LaunchPadItem({ launchPad }) {
+export function LaunchPadItem({ launchPad }) {
   const { addFavoriteLaunchPad, removeFavoriteLaunchPad, isFavoriteLaunchPad } =
     useFavoritesContext()
   const isFavorite = isFavoriteLaunchPad(launchPad)
