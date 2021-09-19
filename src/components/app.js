@@ -16,11 +16,22 @@ export default function App() {
       <NavBar />
       <FavoritesDrawer />
       <Switch>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/launches" element={<Launches />} />
-        <Route path="/launches/:launchId" element={<Launch />} />
-        <Route path="/launch-pads" element={<LaunchPads />} />
-        <Route path="/launch-pads/:launchPadId" element={<LaunchPad />} />
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/launches/:launchId">
+          <Launch />
+        </Route>
+        <Route path="/launches">
+          <Launches />
+        </Route>
+
+        <Route path="/launch-pads/:launchPadId">
+          <LaunchPad />
+        </Route>
+        <Route path="/launch-pads">
+          <LaunchPads />
+        </Route>
       </Switch>
     </div>
   )
